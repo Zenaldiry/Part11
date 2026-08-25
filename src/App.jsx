@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  // eslint-disable-next-line no-unused-vars
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useMatch,
-} from 'react-router-dom'
+import { Routes, Route, useMatch } from 'react-router-dom'
 import { useApi } from './useApi'
 import LoadingSpinner from './LoadingSpinner'
 import ErrorMessage from './ErrorMessage'
