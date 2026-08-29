@@ -39,11 +39,11 @@ jobs:
   notify_failure:
     needs: [build_and_test, deploy]
     runs-on: ubuntu-latest
+    if: failure()
     steps:
       - uses: actions/checkout@v6
       - name: Send Failure Notification
         uses: sarisia/actions-status-discord@v1
-        if: failure()
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           title: 'Build Failed! The pipeline encountered an error'
@@ -59,11 +59,11 @@ jobs:
   notify_success:
     needs: [deploy]
     runs-on: ubuntu-latest
+    if: success()
     steps:
       - uses: actions/checkout@v6
       - name: Send Success Notification
         uses: sarisia/actions-status-discord@v1
-        if: success()
         with:
           webhook: ${{secrets.DISCORD_WEBHOOK}}
           title: 'Deployment Successful! A new version deployed to production'
@@ -73,7 +73,7 @@ jobs:
             **Author:** ${{ github.actor }}
           color: 0x00FF00
   tag_release:
-    needs: [build_and_test]
+    needs: [deploy]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
